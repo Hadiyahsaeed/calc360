@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'package:calc360_app/bmi_meter.dart';
 import 'package:calc360_app/financial_page.dart';
 import 'package:calc360_app/health_page.dart';
 import 'package:calc360_app/math_page.dart';
 import 'package:calc360_app/other_page.dart';
 import 'package:flutter/material.dart';
- // Import the file with BMIMeter
 
+import 'bmi_meter_adults.dart';
+import 'bmi_meter_child.dart';
 
 class BMIPage extends StatefulWidget {
   const BMIPage({Key? key, required this.title}) : super(key: key);
@@ -51,7 +51,6 @@ class _BMIPageState extends State<BMIPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(widget.title),
         actions: [
-          // Buttons for navigation.
           TextButton(
             onPressed: () {
               setState(() {
@@ -166,38 +165,36 @@ class _BMIPageState extends State<BMIPage> {
                       var ft = ftController.text.toLowerCase();
                       var inch = inController.text.toLowerCase();
                       var age = ageController.text.toLowerCase();
-                      // ignore: unnecessary_null_comparison
-                      if (wt != "" && ft != "" && inch != "" && age != null) {
-                        // BMI calculation
-                        var iWt = int.parse(wt);
-                        var iFt = int.parse(ft);
-                        var iInch = int.parse(inch);
+
+                      // Parse age as an integer
+                      var iAge = int.tryParse(age) ?? 0;
+
+                      // Check if the age is within the specified range
+                      if (iAge >= 0 && iAge <= 120) {
+                        var iWt = int.tryParse(wt) ?? 0;
+                        var iFt = int.tryParse(ft) ?? 0;
+                        var iInch = int.tryParse(inch) ?? 0;
                         var tInch = (iFt * 12) + iInch;
                         var tCm = tInch * 2.54;
                         var tM = tCm / 100;
                         var bmi = iWt / (tM * tM);
-
-                        var iAge = int.parse(age);
 
                         result = "Your BMI is: $bmi";
                         if (iAge >= 20) {
                           if (bmi < 16) {
                             bgColor = Colors.red.shade400;
                             setState(() {
-                              result =
-                                  'Severe Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Severe Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi >= 16 && bmi < 17) {
                             bgColor = Colors.red.shade200;
                             setState(() {
-                              result =
-                                  'Moderate Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Moderate Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi >= 17 && bmi < 18.5) {
                             bgColor = Colors.orange.shade200;
                             setState(() {
-                              result =
-                                  'Mild Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Mild Thinness\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi >= 18.5 && bmi < 25) {
                             bgColor = Colors.green.shade400;
@@ -207,59 +204,50 @@ class _BMIPageState extends State<BMIPage> {
                           } else if (bmi >= 25 && bmi < 30) {
                             bgColor = Colors.yellow.shade400;
                             setState(() {
-                              result =
-                                  'Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi >= 30 && bmi < 35) {
                             bgColor = Colors.red.shade200;
                             setState(() {
-                              result =
-                                  'Obese Class I\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Obese Class I\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi >= 35 && bmi < 40) {
                             bgColor = Colors.red.shade400;
                             setState(() {
-                              result =
-                                  'Obese Class II\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Obese Class II\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else {
                             bgColor = const Color.fromARGB(255, 141, 14, 14);
                             setState(() {
-                              result =
-                                  'Obese Class III\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Obese Class III\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           }
                         } else {
-                          // Calculate BMI categories based on age for age < 20
                           if (bmi <= 15.5) {
                             bgColor = Colors.red.shade400;
                             setState(() {
-                              result =
-                                  'Underweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Underweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi > 15.5 && bmi <= 22) {
                             bgColor = Colors.green.shade400;
                             setState(() {
-                              result =
-                                  'Healthy Weight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Healthy Weight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else if (bmi > 22 && bmi <= 25.5) {
                             bgColor = Colors.orange.shade400;
                             setState(() {
-                              result =
-                                  'At Risk of Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'At Risk of Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           } else {
                             bgColor = Colors.red.shade400;
                             setState(() {
-                              result =
-                                  'Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
+                              result = 'Overweight\nYour BMI is: ${bmi.toStringAsFixed(2)}';
                             });
                           }
                         }
                       } else {
                         setState(() {
-                          result = "Please fill all required fields!";
+                          result = "Age should be between 0 and 120";
                         });
                       }
                     },
@@ -273,35 +261,48 @@ class _BMIPageState extends State<BMIPage> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   ElevatedButton(
- onPressed: () {
-  var wt = wtController.text.toLowerCase();
+                    onPressed: () {
+                      var wt = wtController.text.toLowerCase();
                       var ft = ftController.text.toLowerCase();
                       var inch = inController.text.toLowerCase();
                       var age = ageController.text.toLowerCase();
 
-                      var iWt = int.parse(wt);
-                        var iFt = int.parse(ft);
-                        var iInch = int.parse(inch);
-                        var tInch = (iFt * 12) + iInch;
-                        var tCm = tInch * 2.54;
-                        var tM = tCm / 100;
-                        var bmi = iWt / (tM * tM);
+                      var iWt = int.tryParse(wt) ?? 0;
+                      var iFt = int.tryParse(ft) ?? 0;
+                      var iInch = int.tryParse(inch) ?? 0;
+                      var tInch = (iFt * 12) + iInch;
+                      var tCm = tInch * 2.54;
+                      var tM = tCm / 100;
+                      var bmi = iWt / (tM * tM);
 
-                        var iAge = int.parse(age);
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => BMIMeter(
-        bmiValue: bmi,    // Use the 'bmi' variable here
-        isAbove20: true,  // Example age condition, you can replace this with the actual condition
-        iAge: iAge,        // Example age, you can replace this with the actual age
-      ),
-    ),
-  );
-},
+                      var iAge = int.tryParse(age) ?? 0;
 
-  child: const Text('Open BMI Meter'),
-),
+                      if (iAge > 20) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BMIMeterAdultPage(
+                              title: 'Adults Meter',
+                              bmi: bmi,
+                              result: result,
+                            ),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BMIMeterChildPage(
+                              title: 'Children Meter',
+                              bmi: bmi,
+                              result: result,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('View Meter'),
+                  ),
                 ],
               ),
             ),
