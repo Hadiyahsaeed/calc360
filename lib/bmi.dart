@@ -6,9 +6,6 @@ import 'package:calc360_app/math_page.dart';
 import 'package:calc360_app/other_page.dart';
 import 'package:flutter/material.dart';
 
-import 'bmi_meter_adults.dart';
-import 'bmi_meter_child.dart';
-
 class BMIPage extends StatefulWidget {
   const BMIPage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -260,49 +257,7 @@ class _BMIPageState extends State<BMIPage> {
                     result,
                     style: const TextStyle(fontSize: 16),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      var wt = wtController.text.toLowerCase();
-                      var ft = ftController.text.toLowerCase();
-                      var inch = inController.text.toLowerCase();
-                      var age = ageController.text.toLowerCase();
-
-                      var iWt = int.tryParse(wt) ?? 0;
-                      var iFt = int.tryParse(ft) ?? 0;
-                      var iInch = int.tryParse(inch) ?? 0;
-                      var tInch = (iFt * 12) + iInch;
-                      var tCm = tInch * 2.54;
-                      var tM = tCm / 100;
-                      var bmi = iWt / (tM * tM);
-
-                      var iAge = int.tryParse(age) ?? 0;
-
-                      if (iAge > 20) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BMIMeterAdultPage(
-                              title: 'Adults Meter',
-                              bmi: bmi,
-                              result: result,
-                            ),
-                          ),
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BMIMeterChildPage(
-                              title: 'Children Meter',
-                              bmi: bmi,
-                              result: result,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('View Meter'),
-                  ),
+                  
                 ],
               ),
             ),

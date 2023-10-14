@@ -7,7 +7,7 @@ class BMIMeterChildPage extends StatefulWidget {
     Key? key,
     required this.title,
     required this.bmi,
-    required this.result,
+    required this.result, required int iAge,
   }) : super(key: key);
 
   final String title;

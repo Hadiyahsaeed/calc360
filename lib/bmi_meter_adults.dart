@@ -7,7 +7,7 @@ class BMIMeterAdultPage extends StatefulWidget {
     Key? key,
     required this.title,
     required this.bmi,
-    required this.result,
+    required this.result, required int iAge,
   }) : super(key: key);
 
   final String title;
@@ -38,7 +38,7 @@ class _BMIMeterAdultPageState extends State<BMIMeterAdultPage> {
           title: Text(widget.title),
         ),
         body: Center(
-          child: Container(
+          child: SizedBox(
             width: getMeterSize(),
             height: getMeterSize(),
             child: SfRadialGauge(

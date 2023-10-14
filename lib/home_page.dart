@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:calc360_app/bmi_page.dart';
 import 'package:calc360_app/financial_page.dart';
 import 'package:calc360_app/mortgage_calculator.dart';
 import 'package:flutter/material.dart';
-import 'bmi.dart';
 import 'health_page.dart';
 
 
@@ -174,7 +174,7 @@ class _CalculatorColumnState extends State<CalculatorColumn> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                const BMIPage(title: "BMI Calculator"),
+                             bmiPage(),
                           )
 
                         );
